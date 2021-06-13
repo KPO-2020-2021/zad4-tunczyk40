@@ -7,7 +7,7 @@
  *  Mniejsze metody mozna definiwac w ciele klasy.
  */
 
-Macierz3x3 mac_obr_x(double kat)
+Macierz3x3 macierz_obrotu_x(double kat)
 {
     double rad = kat * M_PI / 180;
     Macierz3x3 Obrotu;
@@ -24,7 +24,7 @@ Macierz3x3 mac_obr_x(double kat)
     Obrotu(2, 2) = cos(rad);
     return Obrotu;
 }
-Macierz3x3 mac_obr_y(double kat)
+Macierz3x3 macierz_obrotu_y(double kat)
 {
     double rad = kat * M_PI / 180;
     Macierz3x3 Obrotu;
@@ -41,7 +41,7 @@ Macierz3x3 mac_obr_y(double kat)
     Obrotu(2, 2) = cos(rad);
     return Obrotu;
 }
-Macierz3x3 mac_obr_z(double kat)
+Macierz3x3 macierz_obrotu_z(double kat)
 {
     double rad = kat * M_PI / 180;
     Macierz3x3 Obrotu;

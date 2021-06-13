@@ -5,13 +5,13 @@ Bloczek::Bloczek(int id, PzG::LaczeDoGNUPlota &Lacze, Wektor3D pozycja) : Lacze(
 {
     kat=0;
     this->id = id;
-    orginal.set_nazwa("dat/korpus" + std::to_string(id) + ".dat");
+    oryginal.set_nazwa("dat/korpus" + std::to_string(id) + ".dat");
 
-    Lacze.DodajNazwePliku(orginal.get_nazwa().c_str(), PzG::RR_Ciagly, 2);
+    Lacze.DodajNazwePliku(oryginal.get_nazwa().c_str(), PzG::RR_Ciagly, 2);
   
-    kopia = orginal;
+    kopia = oryginal;
 
-    kopia.przesun(pozycja);
+    kopia.ruch(pozycja);
     
 
    
@@ -19,39 +19,41 @@ Bloczek::Bloczek(int id, PzG::LaczeDoGNUPlota &Lacze, Wektor3D pozycja) : Lacze(
     this->droga = this->droga + pozycja;
 }
 
-void Bloczek::przesun(double droga)
+void Bloczek::ruch(double droga)
 {
-    Wektor3D droga_o;
-    droga_o[0] = droga * cos(kat * M_PI / 180);
-    droga_o[1] = droga * sin(kat * M_PI / 180);
-    this->droga = this->droga + droga_o;
+    Wektor3D droga_2;
+    droga_2[0] = droga * cos(kat * M_PI / 180);
+    droga_2[1] = droga * sin(kat * M_PI / 180);
+    this->droga = this->droga + droga_2;
     kopia.translacja(obr);
-    kopia.przesun(this->droga);
+    kopia.ruch(this->droga);
 }
 
 void Bloczek::obrot_z(double kat)
 {
     this->kat += kat;
-    Macierz3x3 nowa;
-    obr = nowa * mac_obr_z(this->kat);
+
+    obr = obr * macierz_obrotu_z(this->kat);
     kopia.translacja(obr);
-    kopia.przesun(this->droga);
+    kopia.ruch(this->droga);
+    
 }
 void Bloczek::obrot_x(double kat)
 {
     this->kat += kat;
-    Macierz3x3 nowa;
-    obr = nowa * mac_obr_x(this->kat);
+   
+    obr = obr * macierz_obrotu_x(this->kat);
     kopia.translacja(obr);
-    kopia.przesun(this->droga);
+    kopia.ruch(this->droga);
+   
 }
 void Bloczek::obrot_y(double kat)
 {
     this->kat += kat;
-    Macierz3x3 nowa;
-    obr = nowa * mac_obr_y(this->kat);
+    obr = obr * macierz_obrotu_y(this->kat);
     kopia.translacja(obr);
-    kopia.przesun(this->droga);
+    kopia.ruch(this->droga);
+  
 }
 
 void Bloczek::zapisz()
@@ -70,12 +72,12 @@ void Bloczek::sterowanie()
     do
     {
     zapisz();
-    cout << "Menu sterowania: \np - przesuniecie,\no - obrot o kat w stopniach\nm - wyswietl menu\n";
+    cout << "Menu sterowania: \np - Przesuniecie klocka\no - obrot o kat w stopniach\nm - wyswietl menu\n";
     cin >> opcja;
     /* o - obrot bryly o zadana sekwencje katow \n
        t- powtorzenie poprzedniego obrotu \n
        r - wyswietlanie macierzy rotacji \n
-       p - przesuniecie prostokata o zadany wektor \n
+       p - ruchiecie prostokata o zadany wektor \n
        w - wyswietlenie wspolrzednych wierzcholkow \n 
        s - sprawdzanie dlugosci przeciwleglych bokow \n
        m - wyswietl menu \n
@@ -95,8 +97,8 @@ void Bloczek::sterowanie()
             Lacze.DodajNazwePliku("dat/droga.dat", PzG::RR_Ciagly, 2);
             for (int i = 0; i < droga; i++)
             {
-                kopia = orginal;
-                przesun(1);
+                kopia = oryginal;
+                ruch(1);
                 zapisz();
                 Lacze.Rysuj();
             }
@@ -133,8 +135,9 @@ void Bloczek::sterowanie()
             cout << "Ile razy sekwencja ma zostac powtorzona ?\n";
             int ilosc_powtorzen;
             cin >> ilosc_powtorzen;
+            
             for (int i = 0; i < ilosc_powtorzen; i++)
-            {
+            {                  
                 for(long unsigned int j = 0; j < strumien.length(); ++j)
                 {   
                     os = strumien[j];
@@ -142,47 +145,45 @@ void Bloczek::sterowanie()
                 
                     
                     if (kat > 0 && os =='x')
-                    {   
-                        kopia = orginal;
-                        for (int k = 0; k < kat; k++)
-                        {
-                            obrot_x(1);
+                    {
+                        
+                     
+                            kopia=oryginal;
+                            obrot_x(kat);
                             zapisz();
                             Lacze.Rysuj();
                             usleep(CZAS);
-                        }
-                        
-                        
+                                
                     }   
                     else if (kat > 0 && os == 'y')
                     {
-                        kopia = orginal;
-                        for (int k = 0; k < kat; k++)
-                        {
-                            obrot_y(1);
+                        
+                            kopia=oryginal;
+                            obrot_y(kat);
                             zapisz();
                             Lacze.Rysuj();
                             usleep(CZAS);
-                        }
+                        
+                     
                     }
 
                     else if (kat > 0 && os == 'z')
                     {
-                        kopia = orginal;
-                        for (int k = 0; k < kat; k++)
-                        {
-                            obrot_z(1);
+                         
+                            kopia=oryginal;
+                            obrot_z(kat);
                             zapisz();
                             Lacze.Rysuj();
                             usleep(CZAS);
-                        }
+                       
+                       
                     }
 
                     else if (kat < 0 && os == 'x')
                     {
                         for (int k = 0; k > kat; k--)
                         {
-                            kopia = orginal;
+                            kopia = oryginal;
                             obrot_y(-kat);
                             zapisz();
                             Lacze.Rysuj();
@@ -192,7 +193,7 @@ void Bloczek::sterowanie()
                     {
                         for (int k = 0; k > kat; k--)
                         {
-                            kopia = orginal;
+                            kopia = oryginal;
                             obrot_y(-kat);
                             zapisz();
                             Lacze.Rysuj();
@@ -202,7 +203,7 @@ void Bloczek::sterowanie()
                     {
                         for (int k = 0; k > kat; k--)
                         {
-                            kopia = orginal;
+                            kopia = oryginal;
                             obrot_y(-kat);
                             zapisz();
                             Lacze.Rysuj();

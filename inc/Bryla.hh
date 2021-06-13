@@ -23,7 +23,7 @@ class Bryla
  Wektor3D get_srodek() const;
  std::string get_nazwa() const;
 
- void przesun(Wektor3D przes);
+ void ruch(Wektor3D przes);
  void translacja(Macierz3x3 obr);
 
  void zapisz();

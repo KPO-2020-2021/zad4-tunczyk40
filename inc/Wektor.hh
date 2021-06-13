@@ -10,17 +10,17 @@ class Wektor
 {
     static int wszystkie;
     static int aktualne;
-    double _wsp[Wymiar];
+    double wspolrzedne[Wymiar];
 
 public:
     Wektor();
     Wektor(const Wektor& wek){  
         for(int i=0; i<Wymiar;i++)
-        _wsp[i]=wek._wsp[i];
+        wspolrzedne[i]=wek.wspolrzedne[i];
         
         aktualne++;}
     ~Wektor();
-    Wektor(double _wsp[Wymiar]);
+    Wektor(double wspolrzedne[Wymiar]);
     double operator[](int index) const;
     double &operator[](int index);
     Wektor<Wymiar> operator+(Wektor<Wymiar> &arg);
@@ -45,16 +45,16 @@ template <int Wymiar>
 Wektor<Wymiar>::Wektor()
 {
     for (int i = 0; i < Wymiar; i++)
-        _wsp[i] = 0;
+        wspolrzedne[i] = 0;
     aktualne++;
     wszystkie++;
 }
 
 template <int Wymiar>
-Wektor<Wymiar>::Wektor(double _wsp[Wymiar])
+Wektor<Wymiar>::Wektor(double wspolrzedne[Wymiar])
 {
     for (int i = 0; i < Wymiar; i++)
-        this->_wsp[i] = _wsp[i];
+        this->wspolrzedne[i] = wspolrzedne[i];
     aktualne++;
     wszystkie++;
 }
@@ -73,7 +73,7 @@ double Wektor<Wymiar>::operator[](int index) const
         std::cerr << "Indeks poza skala" << std::endl;
         exit(1);
     }
-    return _wsp[index];
+    return wspolrzedne[index];
 }
 
 template <int Wymiar>
@@ -84,7 +84,7 @@ double &Wektor<Wymiar>::operator[](int index)
         std::cerr << "Indeks poza skala" << std::endl;
         exit(1);
     }
-    return _wsp[index];
+    return wspolrzedne[index];
 }
 
 template <int Wymiar>
@@ -93,7 +93,7 @@ Wektor<Wymiar> Wektor<Wymiar>::operator+(Wektor<Wymiar> &arg)
     Wektor<Wymiar> Wynik;
     for (int i = 0; i < Wymiar; i++)
     {
-        Wynik[i] = _wsp[i] + arg[i];
+        Wynik[i] = wspolrzedne[i] + arg[i];
     }
     return Wynik;
 }
@@ -104,7 +104,7 @@ Wektor<Wymiar> Wektor<Wymiar>::operator-(Wektor<Wymiar> &arg)
     Wektor<Wymiar> Wynik;
     for (int i = 0; i < Wymiar; i++)
     {
-        Wynik[i] = _wsp[i] - arg[i];
+        Wynik[i] = wspolrzedne[i] - arg[i];
     }
     return Wynik;
 }

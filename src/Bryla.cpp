@@ -29,7 +29,7 @@ std::string Bryla::get_nazwa() const
     return nazwa;
 }
 
-void Bryla::przesun(Wektor3D przes)
+void Bryla::ruch(Wektor3D przes)
 {
     for (int i = 0; i < (int)wierz.size(); i++)
     {
@@ -51,27 +51,27 @@ void Bryla::zapisz()
 {
     std::fstream plik;
     double tab[] = {0, 0, (*wymiary)[2] / 2};
-    Wektor3D przesun_sr(tab);
+    Wektor3D ruch_sr(tab);
 
     plik.open(nazwa, std::ios::out);
 
     for (int i = 0; i < (int)wierz.size(); i += 2)
     {
-        plik << srodek + przesun_sr << std::endl;
+        plik << srodek + ruch_sr << std::endl;
         for (int j = 0; j < 2; j++)
         {
             plik << wierz[j + i] << std::endl;
         }
-        plik << srodek - przesun_sr << std::endl
+        plik << srodek - ruch_sr << std::endl
              << std::endl;
     }
 
-    plik << srodek + przesun_sr << std::endl;
+    plik << srodek + ruch_sr << std::endl;
     for (int j = 0; j < 2; j++)
     {
         plik << wierz[j] << std::endl;
     }
-    plik << srodek - przesun_sr << std::endl
+    plik << srodek - ruch_sr << std::endl
          << std::endl;
     plik.close();
 }

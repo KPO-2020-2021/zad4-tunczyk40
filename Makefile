@@ -6,9 +6,9 @@ CXXFLAGS=-g -Iinc -Wall -pedantic -std=c++0x
 __start__: obroty_3D
 	./obroty_3D
 
-obroty_3D: obj obj/main.o obj/Macierz3x3.o obj/Wektor3D.o obj/Bryla.o obj/Prostopadloscian.o obj/Graniastoslup6.o obj/Bloczek.o obj/Scena.o obj/Plaszczyzna.o\
+obroty_3D: obj obj/main.o obj/Macierz3x3.o obj/Wektor3D.o obj/Bryla.o obj/Prostopadloscian.o  obj/Bloczek.o obj/Scena.o obj/Plaszczyzna.o\
            obj/lacze_do_gnuplota.o
-	g++ -Wall -pedantic -std=c++0x -o obroty_3D obj/main.o obj/Wektor3D.o obj/Bryla.o obj/Prostopadloscian.o obj/Graniastoslup6.o obj/Bloczek.o obj/Scena.o obj/Plaszczyzna.o\
+	g++ -Wall -pedantic -std=c++0x -o obroty_3D obj/main.o obj/Wektor3D.o obj/Bryla.o obj/Prostopadloscian.o  obj/Bloczek.o obj/Scena.o obj/Plaszczyzna.o\
                         obj/Macierz3x3.o obj/lacze_do_gnuplota.o
 
 obj:
